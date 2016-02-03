@@ -1,0 +1,30 @@
+body {
+    text-align: center;
+}
+body div {
+    text-align: left;
+}
+
+#page-container {
+    width: 800px;
+    margin: 0 auto;
+}
+#img-wrapper {
+    position: relative;
+}
+#hover-top {
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+    padding: 10px;
+
+    background: -moz-linear-gradient(bottom,  rgba(0,0,0,0.10) 0%, rgba(0,0,0,0) 100%);
+    background: -webkit-linear-gradient(bottom,  rgba(0,0,0,0.10) 0%,rgba(0,0,0,0) 100%);
+    background: linear-gradient(to top,  rgba(0,0,0,0.10) 0%,rgba(0,0,0,0) 100%);
+
+    color: white;
+    text-shadow: 1px 1px 3px #0f0f0f;
+}
+.pager .fa {
+    vertical-align: sub;
+}

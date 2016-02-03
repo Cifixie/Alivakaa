@@ -1,26 +1,67 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Alivakaa.fi</title>
+    <title>Alivakaa.fi - DEMO</title>
 
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/bootstrap-theme.min.css" rel="stylesheet">
-    <link href="css/font-awesome.min.css" rel="stylesheet">
-
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-</head>
-<body>
-    <h1>Hello, world!</h1>
+    <link href="style.css" rel="stylesheet">
 
     <script src="js/jquery-1.12.0.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
+    <script src="js/director.min.js"></script>
+</head>
+
+<body>
+    <div id="page-container">
+        <img src="http://alivakaa.fi/kuvat/alivakaa_logo.jpg" alt="Logo" />
+
+        <div id="img-wrapper">
+            <img id="comic-strip" src="http://alivakaa.fi/kuvat/46.jpg" alt="Sarjakuva" />
+        </div>
+        <nav>
+            <ul class="pager">
+                <li class="previous"><a id="to-latest" href="#/show/22">
+                    Vanhin
+                </a></li>
+                <li class=""><a id="to-prev" href="#/show/2">
+                    Edellinen
+                </a></li>
+                <li class=""><a id="to-next" href="#/show/3">
+                    Seuraava
+                </a></li>
+                <li class="next"><a id="to-latest" href="#/show/47">
+                    Uusin
+                </a></li>
+            </ul>
+        </nav>
+    </div>
+<script>
+    $('document').ready(function() {
+        const oldest = 22;
+        const latest = 47;
+
+        var updatePage = function(id) {
+            $('#to-prev').attr('href', '#/show/' + (id - 1));
+            $('#to-next').attr('href', '#/show/' + (id + 1));
+            $('#comic-strip').attr('src', 'http://alivakaa.fi/kuvat/' + id + '.jpg');
+        }
+
+        var router = Router({
+            '/': function () {
+                console.log("main");
+                updatePage(latest);
+            },
+            'show/:id': function (id) {
+                updatePage(parseInt(id));
+            }
+        });
+        router.configure({
+            notfound: function() {
+                console.log("main");
+                updatePage(latest);
+            }
+        });
+        router.init();
+    });
+</script>
 </body>
 </html>
