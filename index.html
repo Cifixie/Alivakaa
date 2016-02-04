@@ -8,10 +8,14 @@
 
     <script src="js/jquery-1.12.0.min.js"></script>
     <script src="js/director.min.js"></script>
+    <script src="configs.js"></script>
 </head>
 
 <body>
     <div id="page-container">
+        <div class="alert-box">
+            Uups! antamasi ID ei kelvannut.
+        </div>
         <img src="http://alivakaa.fi/kuvat/alivakaa_logo.jpg" alt="Logo" />
 
         <div id="img-wrapper">
@@ -19,49 +23,95 @@
         </div>
         <nav>
             <ul>
-                <li><a id="to-latest" href="#/show/22">
+                <li class="link-to"><a class="oldest" href="#">
                     Vanhin
                 </a></li>
-                <li><a id="to-prev" href="#/show/2">
+                <li class="link-to"><a class="prev" href="#">
                     Edellinen
                 </a></li>
-                <li class=""><a id="to-next" href="#/show/3">
+                <li class="link-to"><a class="next" href="#">
                     Seuraava
                 </a></li>
-                <li><a id="to-latest" href="#/show/47">
+                <li class="link-to"><a class="latest" href="#">
                     Uusin
                 </a></li>
             </ul>
         </nav>
     </div>
 <script>
-    $('document').ready(function() {
-        const oldest = 22;
-        const latest = 47;
+    $(function() {
+        /* Koodin rakennemäärittelyt */
+        const comicImageElement = $('#comic-strip');
+        const alertBox = $('.alert-box');
+        const links = {
+            oldest: $('li.link-to a.oldest'),
+            prev: $('li.link-to a.prev'),
+            next: $('li.link-to a.next'),
+            latest: $('li.link-to a.latest')
+        };
 
-        const updateHref = function(e, id) {
-                $(e).attr('href', '#/kuva/' + id);
+        const updateHref = function(element, id) {
+            element.attr('href', '#/kuva/' + id);
         }
 
         const updateImg = function(id) {
-            $('#comic-strip').attr('src', 'http://alivakaa.fi/kuvat/' + id + '.jpg');
+            comicImageElement.attr('src', comicImageUrl + id + '.jpg');
+        }
+
+        const toggleLinkDisabled = function(direction) {
+            if (direction == 'backward') {
+                links.oldest.toggleClass('disabled', true);
+                links.prev.toggleClass('disabled', true);
+                links.next.toggleClass('disabled', false);
+                links.latest.toggleClass('disabled', false);
+            } else if (direction == 'forward') {
+                links.oldest.toggleClass('disabled', false);
+                links.prev.toggleClass('disabled', false);
+                links.next.toggleClass('disabled', true);
+                links.latest.toggleClass('disabled', true);
+            } else {
+                links.oldest.toggleClass('disabled', false);
+                links.prev.toggleClass('disabled', false);
+                links.next.toggleClass('disabled', false);
+                links.latest.toggleClass('disabled', false);
+            }
         }
 
         var router = Router({
             'kuva/:id': function (id) {
-                id = parseInt(id);
-
-                if (id > oldest) {
-                    updateHref('#to-prev', (id-1));
+                id = parseInt(id, 10);
+                if (id <= oldestImg) {
+                    toggleLinkDisabled('backward');
+                } else if (id >= latestImg) {
+                    toggleLinkDisabled('forward');
+                } else {
+                    toggleLinkDisabled('default');
                 }
-                if (id < latest) {
-                    updateHref('#to-next', (id+1));
-                }
 
+                updateHref(links.prev, (id-1));
+                updateHref(links.next, (id+1));
                 updateImg(id);
             }
         });
-        router.init('kuva/' + latest);
+        router.init('/kuva/' + latestImg);
+
+        router.configure({
+            before: function(id) {
+                id = parseInt(id,10);
+                if (isNaN(id) || id < oldestImg || id > latestImg) {
+                    alertBox.show();
+                    window.location.replace('#/kuva/' + latestImg);
+                }
+            }
+        });
+
+        $('nav').delegate('a.disabled', 'click', function(e) {
+            e.preventDefault();
+            return false;
+        });
+
+        updateHref(links.oldest, oldestImg);
+        updateHref(links.latest, latestImg);
     });
 </script>
 </body>

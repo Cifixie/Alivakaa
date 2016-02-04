@@ -28,3 +28,6 @@ body div {
 .pager .fa {
     vertical-align: sub;
 }
+.alert-box {
+    display: none;
+}
