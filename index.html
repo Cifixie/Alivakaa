@@ -15,20 +15,20 @@
         <img src="http://alivakaa.fi/kuvat/alivakaa_logo.jpg" alt="Logo" />
 
         <div id="img-wrapper">
-            <img id="comic-strip" src="http://alivakaa.fi/kuvat/46.jpg" alt="Sarjakuva" />
+            <img id="comic-strip" src="" alt="Sarjakuva" />
         </div>
         <nav>
-            <ul class="pager">
-                <li class="previous"><a id="to-latest" href="#/show/22">
+            <ul>
+                <li><a id="to-latest" href="#/show/22">
                     Vanhin
                 </a></li>
-                <li class=""><a id="to-prev" href="#/show/2">
+                <li><a id="to-prev" href="#/show/2">
                     Edellinen
                 </a></li>
                 <li class=""><a id="to-next" href="#/show/3">
                     Seuraava
                 </a></li>
-                <li class="next"><a id="to-latest" href="#/show/47">
+                <li><a id="to-latest" href="#/show/47">
                     Uusin
                 </a></li>
             </ul>
@@ -39,28 +39,29 @@
         const oldest = 22;
         const latest = 47;
 
-        var updatePage = function(id) {
-            $('#to-prev').attr('href', '#/show/' + (id - 1));
-            $('#to-next').attr('href', '#/show/' + (id + 1));
+        const updateHref = function(e, id) {
+                $(e).attr('href', '#/kuva/' + id);
+        }
+
+        const updateImg = function(id) {
             $('#comic-strip').attr('src', 'http://alivakaa.fi/kuvat/' + id + '.jpg');
         }
 
         var router = Router({
-            '/': function () {
-                console.log("main");
-                updatePage(latest);
-            },
-            'show/:id': function (id) {
-                updatePage(parseInt(id));
+            'kuva/:id': function (id) {
+                id = parseInt(id);
+
+                if (id > oldest) {
+                    updateHref('#to-prev', (id-1));
+                }
+                if (id < latest) {
+                    updateHref('#to-next', (id+1));
+                }
+
+                updateImg(id);
             }
         });
-        router.configure({
-            notfound: function() {
-                console.log("main");
-                updatePage(latest);
-            }
-        });
-        router.init();
+        router.init('kuva/' + latest);
     });
 </script>
 </body>
