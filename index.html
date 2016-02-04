@@ -2,117 +2,97 @@
 <html>
 <head>
     <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta content="alivakaa, frisbeegolf, sarjakuva, heikkanen, " name="keywords">
+    <meta name="description" content="Frisbeegolf-sarjakuva nimeltä Alivakaa päivittyy kerran viikossa netissä (keskiviikkoisin). Sarjakuvaa toteuttaa Harri Heikkanen">
+
     <title>Alivakaa.fi - DEMO</title>
 
-    <link href="style.css" rel="stylesheet">
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap-theme.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
 
     <script src="js/jquery-1.12.0.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
     <script src="js/director.min.js"></script>
-    <script src="configs.js"></script>
+    <script src="//www.google-analytics.com/analytics.js"></script>
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-60594523-2', 'auto');
+        ga('send', 'pageview');
+    </script>
 </head>
 
 <body>
     <div id="page-container">
-        <div class="alert-box">
-            Uups! antamasi ID ei kelvannut.
+        <div id="error-message-id" class="alert alert-warning alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <strong>Uups!</strong> Jotain meni pieleen: linkki ei ollut kelvollinen. Sinut uudelleenohjattiin uusimaan.
         </div>
-        <img src="http://alivakaa.fi/kuvat/alivakaa_logo.jpg" alt="Logo" />
+        <div class="header-img">
+            <img src="img/logo1.jpg" alt="Logo" />
+        </div>
+        <div class="header-img">
+            <a href="http://www.facebook.com/alivakaa">
+                <img src="img/logo2.jpg" alt="contact">
+            </a>
+        </div>
 
         <div id="img-wrapper">
             <img id="comic-strip" src="" alt="Sarjakuva" />
         </div>
         <nav>
-            <ul>
-                <li class="link-to"><a class="oldest" href="#">
-                    Vanhin
-                </a></li>
-                <li class="link-to"><a class="prev" href="#">
-                    Edellinen
-                </a></li>
-                <li class="link-to"><a class="next" href="#">
-                    Seuraava
-                </a></li>
-                <li class="link-to"><a class="latest" href="#">
-                    Uusin
-                </a></li>
+            <ul class="pager">
+                <li id="link-to-oldest">
+                    <a href="#">
+                        <span class="glyphicon glyphicon-fast-backward" aria-hidden="true"></span>
+                    </a>
+                </li>
+                <li id="link-to-prev">
+                    <a href="#">
+                        <span class="glyphicon glyphicon-step-backward" aria-hidden="true"></span>
+                    </a>
+                </li>
+                <li id="link-to-next">
+                    <a href="#">
+                        <span class="glyphicon glyphicon-step-forward" aria-hidden="true"></span>
+                    </a>
+                </li>
+                <li id="link-to-latest">
+                    <a href="#">
+                        <span class="glyphicon glyphicon-fast-forward" aria-hidden="true"></span>
+                    </a>
+                </li>
             </ul>
         </nav>
+        <hr/>
+        <div class="row">
+            <div class="col-xs-4 text-center">
+                <a href="http://www.frisbeepoint.fi">
+                    <img src="http://alivakaa.fi/spons/spon1.png" alt="sponsor1" height="210" width="175">
+                </a>
+            </div>
+            <div class="col-xs-4 text-center">
+                <a href="http://goo.gl/zFUlIK">
+                    <img src="http://alivakaa.fi/spons/spon2.jpg" alt="sponsor2" height="210" width="175">
+                </a>
+            </div>
+            <div class="col-xs-4 text-center">
+                <a href="http://www.frisbeegolfkirja.fi">
+                    <img src="http://alivakaa.fi/spons/spon4.jpg" alt="sponsor4" height="210" width="175">
+                </a>
+            </div>
+        </div>
+        <hr />
+        <h6><a href="http://alivakaa.fi/alivakaa_info.html" class="text-muted">Mainosta Alivakaa.fi sivulla</a></h6>
     </div>
-<script>
-    $(function() {
-        /* Koodin rakennemäärittelyt */
-        const comicImageElement = $('#comic-strip');
-        const alertBox = $('.alert-box');
-        const links = {
-            oldest: $('li.link-to a.oldest'),
-            prev: $('li.link-to a.prev'),
-            next: $('li.link-to a.next'),
-            latest: $('li.link-to a.latest')
-        };
-
-        const updateHref = function(element, id) {
-            element.attr('href', '#/kuva/' + id);
-        }
-
-        const updateImg = function(id) {
-            comicImageElement.attr('src', comicImageUrl + id + '.jpg');
-        }
-
-        const toggleLinkDisabled = function(direction) {
-            if (direction == 'backward') {
-                links.oldest.toggleClass('disabled', true);
-                links.prev.toggleClass('disabled', true);
-                links.next.toggleClass('disabled', false);
-                links.latest.toggleClass('disabled', false);
-            } else if (direction == 'forward') {
-                links.oldest.toggleClass('disabled', false);
-                links.prev.toggleClass('disabled', false);
-                links.next.toggleClass('disabled', true);
-                links.latest.toggleClass('disabled', true);
-            } else {
-                links.oldest.toggleClass('disabled', false);
-                links.prev.toggleClass('disabled', false);
-                links.next.toggleClass('disabled', false);
-                links.latest.toggleClass('disabled', false);
-            }
-        }
-
-        var router = Router({
-            'kuva/:id': function (id) {
-                id = parseInt(id, 10);
-                if (id <= oldestImg) {
-                    toggleLinkDisabled('backward');
-                } else if (id >= latestImg) {
-                    toggleLinkDisabled('forward');
-                } else {
-                    toggleLinkDisabled('default');
-                }
-
-                updateHref(links.prev, (id-1));
-                updateHref(links.next, (id+1));
-                updateImg(id);
-            }
-        });
-        router.init('/kuva/' + latestImg);
-
-        router.configure({
-            before: function(id) {
-                id = parseInt(id,10);
-                if (isNaN(id) || id < oldestImg || id > latestImg) {
-                    alertBox.show();
-                    window.location.replace('#/kuva/' + latestImg);
-                }
-            }
-        });
-
-        $('nav').delegate('a.disabled', 'click', function(e) {
-            e.preventDefault();
-            return false;
-        });
-
-        updateHref(links.oldest, oldestImg);
-        updateHref(links.latest, latestImg);
-    });
-</script>
+    <script src="configs.js"></script>
+    <script src="js/app.js"></script>
 </body>
 </html>

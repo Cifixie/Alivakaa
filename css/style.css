@@ -1,0 +1,23 @@
+body {
+    text-align: center;
+}
+body div {
+    text-align: left;
+}
+
+#page-container {
+    width: 800px;
+    margin: 0 auto;
+    margin-bottom: 3em;
+}
+.pager .fa {
+    vertical-align: sub;
+}
+#error-message-id {
+    display: none;
+    position: fixed;
+    width: 800px;
+}
+.header-img {
+    float: left;
+}
