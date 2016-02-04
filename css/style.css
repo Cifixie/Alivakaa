@@ -1,6 +1,7 @@
 /* container -divin kekitys */
 body {
     text-align: center;
+    padding-top: 1em;
 }
 body div {
     text-align: left;
