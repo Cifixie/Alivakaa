@@ -9,3 +9,5 @@
 6. Huomaa, logo on kahdessa osassa, jolloin vain oikeanpuoleinen on linkki facebook-sivulle
 7. Jos halauat vaihtaa "kuva/" -etuliitteen, Etsi 'kuva' app.js -tiedostosta ja korvaa kaikki
 
+##Huom:
+Bootstrap, Analystics, jQuery ja Director ovat kolmannenosapuolenkirjastoja, joiden dokumentaatio löytyy netistä.

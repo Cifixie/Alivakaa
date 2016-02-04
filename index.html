@@ -1,22 +1,35 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <!-- Browser settings (viewpoint => disables the zooming) -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <!-- Metadata definations to explain the webpage -->
     <meta content="alivakaa, frisbeegolf, sarjakuva, heikkanen, " name="keywords">
     <meta name="description" content="Frisbeegolf-sarjakuva nimeltä Alivakaa päivittyy kerran viikossa netissä (keskiviikkoisin). Sarjakuvaa toteuttaa Harri Heikkanen">
 
+    <!-- Title of webpage -->
     <title>Alivakaa.fi - DEMO</title>
 
+    <!-- Bootstrap components: -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/bootstrap-theme.min.css" rel="stylesheet">
+    <script src="js/bootstrap.min.js"></script>
+
+    <!--
+        Javascript libraries that make's the most of the work
+        - https://github.com/flatiron/director (client-side only)
+        - http://jquery.com/
+    -->
+    <script src="js/director.min.js"></script>
+    <script src="js/jquery-1.12.0.min.js"></script>
+
+    <!-- personal customizations to personal site to look similar than previous -->
     <link href="css/style.css" rel="stylesheet">
 
-    <script src="js/jquery-1.12.0.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/director.min.js"></script>
+    <!-- Google Analytics components -->
     <script src="http://www.google-analytics.com/analytics.js"></script>
     <script>
         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -27,14 +40,18 @@
         ga('create', 'UA-60594523-2', 'auto');
         ga('send', 'pageview');
     </script>
+
 </head>
 
 <body>
     <div id="page-container">
+        <!-- Alert box = Shown by Javascript when ileagal action -->
         <div id="error-message-id" class="alert alert-warning alert-dismissible" role="alert">
             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             <strong>Uups!</strong> Jotain meni pieleen: linkki ei ollut kelvollinen. Sinut uudelleenohjattiin uusimaan.
         </div>
+
+        <!-- Site header images Logo and contact information -->
         <div class="header-img">
             <img src="img/logo1.jpg" alt="Logo" />
         </div>
@@ -44,9 +61,12 @@
             </a>
         </div>
 
+        <!-- comicstrip -->
         <div id="img-wrapper">
             <img id="comic-strip" src="" alt="Sarjakuva" />
         </div>
+
+        <!-- Navigation -->
         <nav>
             <ul class="pager">
                 <li id="link-to-oldest">
@@ -71,7 +91,10 @@
                 </li>
             </ul>
         </nav>
+
         <hr/>
+
+        <!-- sponsores divided to 3 colums, each 4 wide (from maximum of 12 which equals 100%) -->
         <div class="row">
             <div class="col-xs-4 text-center">
                 <a href="http://www.frisbeepoint.fi">
@@ -89,10 +112,13 @@
                 </a>
             </div>
         </div>
+
         <hr />
+        <!-- Extra details for webpage information -->
         <h6 class="pull-left"><a href="http://alivakaa.fi/alivakaa_info.html" class="text-muted">Mainosta Alivakaa.fi sivulla</a></h6>
         <h6 class="pull-right">Powered By <a href="http://getbootstrap.com/" class="text-muted">Bootstrap</a> & <a href="https://github.com/flatiron/director">Director</a></h6>
     </div>
+    <!-- Loading javascript files (contains the app) in end of dom to make sure most of document is already loaded -->
     <script src="configs.js"></script>
     <script src="js/app.js"></script>
 </body>

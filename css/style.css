@@ -1,3 +1,4 @@
+/* container -divin kekitys */
 body {
     text-align: center;
 }
@@ -10,14 +11,15 @@ body div {
     margin: 0 auto;
     margin-bottom: 6em;
 }
-.pager .fa {
-    vertical-align: sub;
-}
+
+/* Piilotetaan oletuksena virheviesti */
 #error-message-id {
     display: none;
     position: fixed;
     width: 800px;
 }
+
+/* Pakotetaan otsikon kuvat vierekkäin, tekemällä niistä kelluvia. */
 .header-img {
     float: left;
 }
