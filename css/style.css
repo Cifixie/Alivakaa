@@ -13,14 +13,12 @@ body div {
     margin-bottom: 6em;
 }
 
-/* Piilotetaan oletuksena virheviesti */
 #error-message-id {
     display: none;
-    position: fixed;
+    position: absolute;
     width: 800px;
 }
 
-/* Pakotetaan otsikon kuvat vierekkäin, tekemällä niistä kelluvia. */
 .header-img {
     float: left;
 }

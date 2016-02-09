@@ -1,5 +1,5 @@
 $(function() {
-    /* Koodin rakennemäärittelyt - Määritellään HTML elementit jQuery-objekteiksi */
+    /* Creating Jquery object from HTML DOM -elements */
     const comicImageElement = $('#comic-strip');
     const alertBox = $('#error-message-id');
     const nav = {
@@ -9,84 +9,69 @@ $(function() {
         latest: $('#link-to-latest')
     };
 
-    /* Toiminnallisuudet, updateHref, updateImg & toggleLinkDisabled */
-    const updateHref = function(element, id) { // Päivitetään navigointipalkin linkit
-        element.children('a').attr('href', '#/kuva/' + id);
+    /* function updateHref: Updates link-elements in nav */
+    const updateHref = function (element, id) {
+        element.children('a').attr('href', route + id);
     }
 
-    const updateImg = function(id) { // Päivitetään sarjakuva
+    /* function updateNav: Updates the navigation links by id */
+    const updateNav = function(id) {
+        disableLinks(id);
+        updateHref(nav.next, (id+1));
+        updateHref(nav.prev, (id-1));
+    }
+
+    /* function updateImg: Changes the image by id */
+    const updateImg = function (id) {
         comicImageElement.attr('src', comicImageUrl + id + '.jpg');
     }
 
-    const toggleLinkDisabled = function(direction) { // Estetään navigointipainikkeiden clikkaus ääripäissä (ei voi mennä yli lukualueen)
-        if (direction == 'backward') {
-            nav.oldest.toggleClass('disabled', true);
-            nav.prev.toggleClass('disabled', true);
-            nav.next.toggleClass('disabled', false);
-            nav.latest.toggleClass('disabled', false);
-        } else if (direction == 'forward') {
-            nav.oldest.toggleClass('disabled', false);
-            nav.prev.toggleClass('disabled', false);
-            nav.next.toggleClass('disabled', true);
-            nav.latest.toggleClass('disabled', true);
-        } else {
-            nav.oldest.toggleClass('disabled', false);
-            nav.prev.toggleClass('disabled', false);
-            nav.next.toggleClass('disabled', false);
-            nav.latest.toggleClass('disabled', false);
-        }
+    /* function disableLink: Disable's the use of navigation links which would leave out of range */
+    const disableLinks = function (id) {
+        var oldest = (id <= oldestImg);
+        var latest = (id >= latestImg);
+        nav.oldest.toggleClass('disabled', oldest);
+        nav.prev.toggleClass('disabled', oldest);
+        nav.next.toggleClass('disabled', latest);
+        nav.latest.toggleClass('disabled', latest);
     }
 
-    /* Luodaan reityskartta ja controller, jossa päivitetään sivusto ID:n perusteella */
+    /* function redirect: redirect the page to latest comicstrip */
+    const redirect = function() {
+        alertBox.show();
+        window.location.replace(route + latestImg);
+    }
+
+    /* Creates intance of Router and defines routes */
     var router = Router({
         'kuva/:id': function (id) {
-            id = parseInt(id, 10);
-            /* Poistetaan navikointilinkit, jotka johtavat alueen ulkopuolelle pois käytöstä */
-            if (id <= oldestImg) {
-                toggleLinkDisabled('backward');
-            } else if (id >= latestImg) {
-                toggleLinkDisabled('forward');
-            } else {
-                toggleLinkDisabled('default');
-            }
-
-            /* Päivitetään linkit ja sarkajuka */
-            updateHref(nav.prev, (id-1));
-            updateHref(nav.next, (id+1));
+            updateNav(id);
             updateImg(id);
         }
     });
 
-    /* Sivuston virheensietokyky:
-     * Validoidaan ID osoiteriviltä:
-      * Virhetilanteessa uudelleenohjataan uusimpaan kuvaan ja näytetään ystävällinen virhesivu
-      * Jos käyttäjä syöttää virheellisen sivun, -^
-     */
+    /* Configures the id validation for comic, if invalid redirects */
     router.configure({
         before: function(id) {
-            console.log('a', this);
-            id = parseInt(id,10);
             if (isNaN(id) || id < oldestImg || id > latestImg) {
-                alertBox.show();
-                window.location.replace('#/kuva/' + latestImg);
+                redirect();
             }
         },
         notfound: function() {
-            alertBox.show();
-            window.location.replace('#/kuva/' + latestImg);
+            redirect();
         }
     });
 
-    /* Alustetaan sovellus - "Käynnistetään" */
-    router.init('/kuva/' + latestImg);
+    /* Initializes the Router (starts the app) */
+    router.init('kuva/' + latestImg);
 
-    /* Luodaan eventHandler navikointipainikkeille: estetään linkin toiminta, jos se on poistettu käytöstä controllerissa. */
+    /* update's the oldest and latest navlinks */
+    updateHref(nav.oldest, oldestImg);
+    updateHref(nav.latest, latestImg);
+
+    /* Creates event handler for preventing the disables links to go anywhere */
     $('nav').delegate('li.disabled a', 'click', function(e) {
         e.preventDefault();
         return false;
     });
-
-    /* Päivitetään lautauksen yhteydessä uusin ja vanhin navikointilinkit */
-    updateHref(nav.oldest, oldestImg);
-    updateHref(nav.latest, latestImg);
 });

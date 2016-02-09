@@ -1,13 +1,20 @@
 # Alivakaa
+Suomen hauskin Frisbeegolf stripsarjakuva!
 
 ##Asennus
-1. Siirrä kaikki tiedostot serverin hakemistoon
-2. Korjaa linkit index.html:stä (esim. etsimällä 'href="http://alivakaa.fi/' ja korvaamalla ne relatiivisillä linkeillä)
-3. Tarkista, että kaikki tiedot ja muut pitävät paikansa, kuten sivuston metadata, otsikko yms.
-4. Tarkista google Analytics
-5. Halutessasi voit vaihtaa virheviestin (div id=error-message-id)
-6. Huomaa, logo on kahdessa osassa, jolloin vain oikeanpuoleinen on linkki facebook-sivulle
-7. Jos halauat vaihtaa "kuva/" -etuliitteen, Etsi 'kuva' app.js -tiedostosta ja korvaa kaikki
+- Siirrä kaikki tiedostot serverin hakemistoon
+- Korjaa absoluutiset osoitukset index.html:stä relatiivisillä, ainakin:
+  - Sponsorien kuvat
+  - alivakaa_info
+- Tarkista, että kaikki tiedot ja muut pitävät paikansa, kuten sivuston metadata, otsikko yms.
+- Tarkista google Analytics
+- Halutessasi voit vaihtaa virheviestin (div id=error-message-id), joka näytetään jos URL -osoite on virheellinen
+- Huomaa, logo on kahdessa osassa, jolloin vain oikeanpuoleinen on linkki facebook-sivulle
+- Jos haluat vaihtaa "kuva/" -etuliitteen:
+  - Muokkaa js/app.js-tiedostosta Routerin ominaisuuksista polut
+  - Muuta config.js -tiedostosta route
+- Muuta config.js -tiedostosta comicImageUrl -muuttujan arvo relatiivikseksi poluksi (lähtien Index.html:stä)
 
 ##Huom:
-Bootstrap, Analystics, jQuery ja Director ovat kolmannenosapuolenkirjastoja, joiden dokumentaatio löytyy netistä.
+Bootstrap, Analystics, jQuery ja Director ovat kolmannenosapuolenkirjastoja.
+Dokumentaatiot näille löytyy netistä.

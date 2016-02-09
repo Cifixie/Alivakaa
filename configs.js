@@ -5,3 +5,4 @@
 const oldestImg = 22;
 const latestImg = 47;
 const comicImageUrl = 'http://alivakaa.fi/kuvat/';
+const route = '#/kuva/';
