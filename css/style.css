@@ -1,24 +1,17 @@
-/* container -divin kekitys */
-body {
-    text-align: center;
-    padding-top: 1em;
-}
-body div {
-    text-align: left;
-}
-
 #page-container {
-    width: 800px;
-    margin: 0 auto;
-    margin-bottom: 6em;
+    margin-top: 2em;
+    margin-bottom: 4em;
+    width: 830px !important;
 }
 
 #error-message-id {
     display: none;
-    position: absolute;
-    width: 800px;
 }
 
-.header-img {
+#header div:first-child {
     float: left;
+}
+
+#header div:last-child {
+    float: right;
 }
