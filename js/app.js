@@ -42,7 +42,7 @@ $(function() {
         window.location.replace(route + latestImg);
     }
 
-    /* Creates intance of Router and defines routes */
+    /* Creates instance of Router and defines routes */
     var router = Router({
         'kuva/:id': function (id) {
             updateNav(id);

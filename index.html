@@ -1,21 +1,19 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <!-- Bootstrap requires meta definitions below -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- Metadata definations to explain the webpage -->
+    <!-- Metadata which defines the page (You can edit these, shown in search engines etc. -->
     <meta content="alivakaa, frisbeegolf, sarjakuva, heikkanen, " name="keywords">
     <meta name="description" content="Frisbeegolf-sarjakuva nimeltä Alivakaa päivittyy kerran viikossa netissä (keskiviikkoisin). Sarjakuvaa toteuttaa Harri Heikkanen">
 
+    <!-- Page title -->
     <title>Alivakaa.fi - DEMO</title>
 
-    <!--
-        Javascript libraries that make's the most of the work
-        - https://github.com/flatiron/director (client-side only)
-        - http://jquery.com/
-    -->
+    <!-- Javascript libraries that make's the most of the work -->
     <script src="js/director.min.js"></script>
     <script src="js/jquery-1.12.0.min.js"></script>
 
@@ -25,7 +23,7 @@
     <script src="js/bootstrap.min.js"></script>
 
 
-    <!-- personal customizations to personal site to look similar than previous -->
+    <!-- customizing webpage -->
     <link href="css/style.css" rel="stylesheet">
 
     <!-- Google Analytics components -->
@@ -41,11 +39,15 @@
 </head>
 <body>
     <div id="page-container" class="container">
+
+        <!-- Error message begins -->
         <div id="error-message-id" class="alert alert-warning alert-dismissible" role="alert">
             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             <strong>Uups!</strong> Jotain meni pieleen: URL ei ollut kelvollinen, joten sinut uudelleenohjattiin uusimaan strippiin.
         </div>
+        <!-- Error message ends -->
 
+        <!-- Header begins -->
         <div id="header">
             <div>
                 <img src="img/logo1.jpg" alt="Logo" />
@@ -56,9 +58,13 @@
                 </a>
             </div>
         </div>
+        <!-- Header ends -->
 
+        <!-- strip image begin -->
         <img id="comic-strip" src="" alt="Sarjakuva" />
+        <!-- strip image ends -->
 
+        <!-- Navigation buttons begins -->
         <div class="row">
             <div class="col-xs-12">
                 <nav>
@@ -87,8 +93,9 @@
                 </nav>
             </div>
         </div>
+        <!-- Navigation buttons ends -->
 
-        <!-- sponsores divided to 3 colums, each 4 wide (from maximum of 12 which equals 100%) -->
+        <!-- Sponsors begins -->
         <div class="row">
             <div class="col-xs-4 text-center">
                 <a href="http://www.frisbeepoint.fi">
@@ -106,9 +113,11 @@
                 </a>
             </div>
         </div>
+        <!-- Sponsors ends -->
 
         <hr/>
 
+        <!-- extra details / credits begins -->
         <div class="row">
             <div class="col-xs-6 text-left">
                 <h6><a href="http://alivakaa.fi/alivakaa_info.html" class="text-muted">Mainosta Alivakaa.fi sivulla</a></h6>
@@ -117,7 +126,7 @@
                 <h6>Powered By <a href="http://getbootstrap.com/" class="text-muted">Bootstrap</a> & <a href="https://github.com/flatiron/director">Director</a></h6>
             </div>
         </div>
-        <!-- Extra details for webpage information -->
+        <!-- extra details / credits ends -->
     </div>
 
     <!-- Loading javascript files (contains the app) in end of dom to make sure most of document is already loaded -->
