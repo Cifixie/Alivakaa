@@ -8,10 +8,10 @@
     display: none;
 }
 
-#header div:first-child {
-    float: left;
+#sponsors div {
+    margin: 5px;
 }
 
-#header div:last-child {
-    float: right;
+.sponsors {
+    display: inline-block;
 }
