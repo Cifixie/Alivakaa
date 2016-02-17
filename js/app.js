@@ -45,6 +45,7 @@ $(function() {
     /* Creates instance of Router and defines routes */
     var router = Router({
         'kuva/:id': function (id) {
+            id = parseInt(id,10);
             updateNav(id);
             updateImg(id);
         }
