@@ -15,3 +15,7 @@
 .sponsors {
     display: inline-block;
 }
+
+hr {
+    border-top-width: 2px !important;
+}
