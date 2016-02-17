@@ -19,3 +19,7 @@
 hr {
     border-top-width: 2px !important;
 }
+
+.pager a {
+    padding: 2px 10px !important;
+}
