@@ -2,6 +2,7 @@ $(function() {
     /* Creating Jquery object from HTML DOM -elements */
     const comicImageElement = $('#comic-strip');
     const alertBox = $('#error-message-id');
+    const socialSharingButtons = $('.rrssb-buttons');
     const nav = {
         oldest: $('#link-to-oldest'),
         prev: $('#link-to-prev'),
@@ -34,6 +35,11 @@ $(function() {
         nav.latest.toggleClass('disabled', id == latestImg || disable.latest === true);
     }
 
+    const updateSocialSharing = function (id) {
+        var updatedLinks = $.extend(false, socialSharing, {url: socialSharing.url + id} );
+        socialSharingButtons.rrssb(updatedLinks);
+    }
+
     /* function redirect: redirect the page to latest comicstrip */
     const redirect = function() {
         alertBox.show();
@@ -51,6 +57,7 @@ $(function() {
                 updateNav(id, {next: true});
                 updateImg(removedIMG);
             }
+            updateSocialSharing(id);
         }
     });
 

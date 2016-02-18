@@ -7,3 +7,9 @@ const oldestImg = 24;
 const latestImg = 47;
 const comicImageUrl = 'http://alivakaa.fi/kuvat/';
 const route = '#/kuva/';
+
+const socialSharing = {
+    title: 'Alivakaa - Sarjakuva frisbeegolfista',
+    description: 'Alivakaa - Sarjakuva frisbeegolfista!',
+    url: 'http://alivakaa.fi/' + route
+};
