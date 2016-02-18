@@ -15,8 +15,8 @@ $(function() {
     }
 
     /* function updateNav: Updates the navigation links by id */
-    const updateNav = function(id) {
-        disableLinks(id);
+    const updateNav = function(id, disable) {
+        disableLinks(id, disable);
         updateHref(nav.next, (id+1));
         updateHref(nav.prev, (id-1));
     }
@@ -27,13 +27,11 @@ $(function() {
     }
 
     /* function disableLink: Disable's the use of navigation links which would leave out of range */
-    const disableLinks = function (id) {
-        var oldest = (id <= oldestImg);
-        var latest = (id >= latestImg);
-        nav.oldest.toggleClass('disabled', oldest);
-        nav.prev.toggleClass('disabled', oldest);
-        nav.next.toggleClass('disabled', latest);
-        nav.latest.toggleClass('disabled', latest);
+    const disableLinks = function (id, disable) {
+        nav.oldest.toggleClass('disabled', id == oldestImg || disable.oldest === true);
+        nav.prev.toggleClass('disabled', id <= oldestImg || disable.prev === true);
+        nav.next.toggleClass('disabled', id >= latestImg || disable.next === true);
+        nav.latest.toggleClass('disabled', id == latestImg || disable.latest === true);
     }
 
     /* function redirect: redirect the page to latest comicstrip */
@@ -46,15 +44,20 @@ $(function() {
     var router = Router({
         'kuva/:id': function (id) {
             id = parseInt(id,10);
-            updateNav(id);
-            updateImg(id);
+            if (id >= oldestImg) {
+                updateNav(id, {});
+                updateImg(id);
+            } else {
+                updateNav(id, {next: true});
+                updateImg(removedIMG);
+            }
         }
     });
 
     /* Configures the id validation for comic, if invalid redirects */
     router.configure({
         before: function(id) {
-            if (isNaN(id) || id < oldestImg || id > latestImg) {
+            if (isNaN(id) || id > latestImg) {
                 redirect();
             }
         },
